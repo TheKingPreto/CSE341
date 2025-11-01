@@ -1,15 +1,15 @@
 ###
-# Teste 1: GET All Contacts
-# Deve retornar um status 200 OK e uma lista JSON de todos os contatos.
+# Test 1: GET All Contacts
+# Must return a status 200 OK and a JSON list of all contacts.
 GET https://cse341-rdu3.onrender.com/contacts HTTP/1.1
 
 ###
-# Teste 2: GET Single Contact (substitua <ID_DO_CONTATO> por um ID real do MongoDB)
-# Deve retornar um status 200 OK e o objeto JSON do contato específico.
-# Você precisa executar o Teste 1 primeiro e copiar um dos campos "_id" retornados.
-GET https://cse341-rdu3.onrender.com/contacts/6905fe2e4759e130d3838bfb HTTP/1.1
+# Test 2: GET Single Contact (substitua <ID_DO_CONTATO> por um ID real do MongoDB)
+# Must return a status 200 OK and the JSON object from the specific contact.
+# You need execute the Test 1 first and copy one of the "_id" returned.
+GET https://cse341-rdu3.onrender.com/contacts/6905fe2e4759e130d3838bfc HTTP/1.1
 
 ###
-# Teste 3: GET Single Contact (Contato Inexistente)
-# Deve retornar um status 404 Not Found e a mensagem "Contact not found".
+# Test 3: GET Single Contact (Unexistent ID)
+# Must return a status 404 Not Found and a message "Contact not found".
 GET https://cse341-rdu3.onrender.com/contacts/60a4f5f90a9a4c0015f0a0a0 HTTP/1.1
