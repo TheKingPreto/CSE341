@@ -5,10 +5,11 @@
     "description": "API for storing and retrieving contact information.",
     "version": "1.0.0"
   },
-  "host": "https://cse341-rdu3.onrender.com",
+  "host": "cse341-rdu3.onrender.com",
   "basePath": "/",
   "schemes": [
-    "https"
+    "https",
+    "http"
   ],
   "paths": {
     "/": {

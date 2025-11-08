@@ -5,8 +5,8 @@ const doc = {
     title: 'Contacts API',
     description: 'API for storing and retrieving contact information.',
   },
-  host: 'https://cse341-rdu3.onrender.com', 
-  schemes: ['https'],
+  host: 'cse341-rdu3.onrender.com', 
+  schemes: ['https', 'http'],
   definitions: {
     Contact: {
       firstName: "Lucas",
