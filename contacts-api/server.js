@@ -15,7 +15,7 @@ const contactRoutes = require('./routes/contacts');
 app.use('/contacts', contactRoutes);
 
 // Connect to MongoDB
-mongoose.connect(process.env.DB_CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.DB_CONNECTION_STRING)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
 
