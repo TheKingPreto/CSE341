@@ -6,7 +6,7 @@ const doc = {
     description: 'API for storing and retrieving contact information.',
   },
   host: 'cse341-rdu3.onrender.com', 
-  schemes: ['https', 'http'],
+  schemes: ['https'],
   definitions: {
     Contact: {
       firstName: "Lucas",

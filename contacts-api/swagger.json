@@ -6,10 +6,9 @@
     "version": "1.0.0"
   },
   "host": "cse341-rdu3.onrender.com",
-  "basePath": "/",
+  "basePath": "/contacts",
   "schemes": [
-    "https",
-    "http"
+    "https"
   ],
   "paths": {
     "/": {
