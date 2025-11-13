@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
     const contacts = await Contact.find();
     res.status(200).json(contacts);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: 'Failed to fetch contacts', error: err.message });
   }
 });
 
@@ -62,6 +62,9 @@ router.get('/:id', async (req, res) => {
     if (!contact) return res.status(404).json({ message: 'Contact not found' });
     res.status(200).json(contact);
   } catch (err) {
+    if (err.name === 'CastError') {
+      return res.status(400).json({ message: 'Invalid contact ID format' });
+    }
     res.status(500).json({ message: err.message });
   }
 });
@@ -95,13 +98,15 @@ router.get('/:id', async (req, res) => {
  * description: Server error.
  */
 router.post('/', async (req, res) => {
-  const contact = new Contact({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    favoriteColor: req.body.favoriteColor,
-    birthday: req.body.birthday
-  });
+
+  const { firstName, lastName, email, favoriteColor, birthday } = req.body;
+
+  // Validate required fields
+  if (!firstName || !lastName || !email || !favoriteColor || !birthday) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  const contact = new Contact({ firstName, lastName, email, favoriteColor, birthday });
 
   try {
     const newContact = await contact.save();
@@ -110,7 +115,7 @@ router.post('/', async (req, res) => {
     if (err.name === 'ValidationError') {
       return res.status(400).json({ message: err.message });
     }
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: 'Failed to create contact', error: err.message });
   }
 });
 
@@ -161,7 +166,10 @@ router.put('/:id', async (req, res) => {
     if (err.name === 'ValidationError') {
       return res.status(400).json({ message: err.message });
     }
-    res.status(500).json({ message: err.message });
+    if (err.name === 'CastError') {
+      return res.status(400).json({ message: 'Invalid contact ID format' });
+    }
+    res.status(500).json({ message: 'Failed to update contact', error: err.message });
   }
 });
 
@@ -190,14 +198,15 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const result = await Contact.findByIdAndDelete(req.params.id);
-    
-    if (result) {
-      res.status(200).send(); 
-    } else {
-      res.status(404).json({ message: 'Contact not found' });
+    if (!result) {
+      return res.status(404).json({ message: 'Contact not found' });
     }
+    res.status(200).json({ message: 'Contact deleted successfully' });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    if (err.name === 'CastError') {
+      return res.status(400).json({ message: 'Invalid contact ID format' });
+    }
+    res.status(500).json({ message: 'Failed to delete contact', error: err.message });
   }
 });
 
